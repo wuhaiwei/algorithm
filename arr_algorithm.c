@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 
 // 二分查找
@@ -72,7 +73,7 @@ void Swap( int *num_a, int *num_b )
 }
  //调整序列为最大堆
 // array是待调整的堆数组,i是待调整的数组元素的位置,nlength是数组的长度
-void HeapAdjust(int array[], int i, int nLength)
+void HeapBigAdjust(int array[], int i, int nLength)
 {
     int nChild, nTemp;
     for (nTemp = array[i]; 2 * i + 1 < nLength; i = nChild)
@@ -101,7 +102,7 @@ int findKthLargest(int array[], int length,int k)
     for (int i = length / 2 - 1; i >= 0; i--)
     {
         // 调整原始无序序列为最大堆
-        HeapAdjust(array, i, length);
+        HeapBigAdjust(array, i, length);
     }
     // 从最后一个元素开始对序列进行调整,不断的缩小调整的范围直到第一个元素
     for (int i = length - 1; i >= length - k; i--)
@@ -110,9 +111,57 @@ int findKthLargest(int array[], int length,int k)
         // 保证当前的最后一个位置的元素都是在现在的这个序列之中最大的
         Swap(&array[0], &array[i]);
         // 不断缩小调整heap的范围,每一次调整完毕保证第一个元素是当前序列的最大值
-        HeapAdjust(array, 0, i);
+        HeapBigAdjust(array, 0, i);
     }
     return array[length - k];
+}
+
+
+
+//建立小顶堆
+void HeapLittleAdjust(int array[], int i, int nLength)
+{
+    int nChild, nTemp;
+    for (nTemp = array[i]; 2 * i + 1 < nLength; i = nChild)
+    {
+        // nChild:左子结点的位置是 父结点位置 * 2 + 1(在数组中的位置)  nChild + 1： 右子结点 
+        nChild = 2 * i + 1;
+        // 得到子结点中较小的结点
+        if (nChild < nLength - 1 && array[nChild + 1] < array[nChild])
+            nChild++;
+        // 如果较小的子结点小于父结点那么把较小的子结点往上移动,替换它的父结点
+        if (nTemp > array[nChild])
+        {
+            array[i] = array[nChild];
+        }
+        else  // 否则退出循环
+        {
+            break;
+        }
+    }
+    // 最后把需要调整的元素值放到合适的位置
+    array[i] = nTemp;
+}
+//最小的K个数
+int* getLeastNumbers(int array[], int length, int k, int* returnSize){
+	 int *resultArr = (int *)malloc(k * sizeof(int));
+
+	for (int i = length / 2 - 1; i >= 0; i--)
+    {
+        // 调整原始无序序列为最小堆
+        HeapLittleAdjust(array, i, length);
+    }
+    // 从最后一个元素开始对序列进行调整,不断的缩小调整的范围直到第一个元素
+    for (int i = length - 1; i >= length - k; i--)
+    {
+        // 把第一个元素和当前的最后一个元素交换,
+        // 保证当前的最后一个位置的元素都是在现在的这个序列之中最小的
+        Swap(&array[0], &array[i]);
+        // 不断缩小调整heap的范围,每一次调整完毕保证第一个元素是当前序列的最小值
+        HeapLittleAdjust(array, 0, i);
+        resultArr[length - 1 - i] = array[i];
+    }
+    return resultArr;
 }
 
 
@@ -141,12 +190,21 @@ int main(){
 
 
 	// 使用堆排序找到数组中第K大元素
-	int arr_test[] = { 8, 4, 2, 3, -55,1234,-567,222,12,5, 1, 6, 9, 0, 3 };
+	// int arr_test[] = { 8, 4, 2, 3, -55,1234,-567,222,12,5, 1, 6, 9, 0, 3 };
+ //    int n = sizeof(arr_test) / sizeof(int);
+ //    int k = 5;
+ //    int kTh = findKthLargest( arr_test, n, k);
+ //    printf("%d\n", kTh);
+
+
+
+
+    //最小的K个数
+    int arr_test[] = { 8, 4, 2, 3, -55,1234,-567,222,12,5, 1, 6, 9, 0, 3 };
     int n = sizeof(arr_test) / sizeof(int);
     int k = 5;
-    int kTh = findKthLargest( arr_test, n, k);
-    printf("%d\n", kTh);
-
+    int *resultArr = getLeastNumbers(arr_test,n,k,0);
+    Show(resultArr,k);
 
 
 	
