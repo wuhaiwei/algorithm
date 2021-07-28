@@ -2,17 +2,6 @@
 #include <math.h>
 #include <string.h>
 
-// 阶乘
-int fac(int n){
-	if (n <= 0)
-	{
-		return 0;
-	}else if(n == 1){
-		return 1;
-	}else{
-		return n * fac(n - 1);
-	}
-}
 
 // 是否是质数
  int isPrime_2( int num )  
@@ -37,7 +26,28 @@ int reverseInt(int n){
 	return (result > max || result < min) ? 0 : result;
 }
 
+int fac(int n){
+	if (n == 0)
+	{
+		return 0;
+	}else if(n == 1){
+		return 1;
+	}else{
+		return n * fac(n - 1);
+	}
+}
 
+int isPrime(int n){
+	int tmp = sqrt(n);
+	for (int i = 2; i <= tmp; ++i)
+	{
+		if (n % i == 0)
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
 
 
 int main () {
@@ -47,14 +57,14 @@ int main () {
 
 
     //是否是质数
-	int ret = isPrime_2(9);
-	printf("%d\n", ret);
+	// int ret = isPrime(7);
+	// printf("%d\n", ret);
 
 
     //反转整数
-    // int n = 123456678;
-    // int resverseN = reverseInt(n);
-    // printf("%d\n", resverseN);
+    int n = 123456678;
+    int resverseN = reverseInt(n);
+    printf("%d\n", resverseN);
 
 
 

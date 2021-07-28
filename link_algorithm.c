@@ -38,19 +38,20 @@ struct ListNode* reverseList(struct ListNode* head){
 
 
 // 判断链表是否有环
-//bool hasCycle(struct ListNode *head) {
-//    if(head == NULL || head->next == NULL) return false;
-//    struct ListNode *fast = head;
-//    struct ListNode *slow = head;
-//    while(slow && fast && fast->next){
-//        fast = fast->next->next;
-//        slow = slow->next;
-//        if(fast == slow){
-//            return true;
-//        }
-//    }
-//    return false;
-//}
+bool hasCycle(struct ListNode *head) {
+   if(head == NULL || head->next == NULL) return false;
+   struct ListNode *fast = head;
+   struct ListNode *slow = head;
+   while(slow && fast && fast->next){
+       fast = fast->next->next;
+       slow = slow->next;
+       if(fast == slow){
+           return true;
+       }
+   }
+   return false;
+}
+
 
 // 返回两个单链表的交点，假设两个链表均无环
 struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB) {
@@ -62,6 +63,7 @@ struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *he
     }
     return p;
 }
+
 
 
 //合并两个有序链表
@@ -97,6 +99,7 @@ struct ListNode* mergeTwoListsByRecursion(struct ListNode* l1, struct ListNode* 
         return l2;
     }
 }
+
 
 
 int main(){

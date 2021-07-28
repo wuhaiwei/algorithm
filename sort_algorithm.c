@@ -93,7 +93,6 @@ void sort_by_quick(int a[], int left, int right) {
 }
 
 
-
 //mark 堆排序
 // 打印结果
 void Show(int  arr[], int n)
