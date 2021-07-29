@@ -185,7 +185,7 @@ void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n){
 
 int main(){
 
-    //test 变基aaaaaaaafdaafda1011
+    //test 变基aaaaaaaafdaafda101112
 	//二分查找
 	// int a[] = {1,4,5,6,7,8,9,10};
 	// int ret = binary_search(a,0,sizeof(a)/sizeof(int) - 1,10);
